@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login with Google</title>
+    
+    <!-- Agregar el enlace de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn-google {
+            background-color: #4285F4;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .btn-google:hover {
+            background-color: #357ae8;
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google logo" class="logo">
+    <h2 class="mb-4">Sign in with Google</h2>
+    
+    <!-- Link de inicio de sesión con OAuth 2.0 -->
+    <a href="{% provider_login_url 'google' %}" class="btn btn-google">
+        <i class="fab fa-google"></i> Sign in with Google
+    </a>
+
+    <!-- Formulario tradicional si no usas OAuth -->
+    <!-- Si deseas incluir un formulario de inicio de sesión tradicional en la misma página, puedes añadir el siguiente formulario -->
+    <form method="POST" action="{% url 'account:login' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="id_username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="id_password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="id_password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+</div>
+
+<!-- Agregar el JS de Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

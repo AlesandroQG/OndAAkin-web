@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <div class="login-container">
+    <h2>Iniciar sesión con Google</h2>
+
+    <p>Para iniciar sesión, por favor, haz clic en el siguiente botón:</p>
+
+    <a href="{% url 'social:begin' 'google' %}" class="btn btn-google">
+      Iniciar sesión con Google
+    </a>
+  </div>
+{% endblock %}

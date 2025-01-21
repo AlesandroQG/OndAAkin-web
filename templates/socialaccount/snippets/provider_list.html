@@ -1,0 +1,61 @@
+{% load allauth socialaccount %}
+{% get_providers as socialaccount_providers %}
+{% if socialaccount_providers %}
+    <style>
+        .social-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+
+        .social-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Example styles for Google */
+        .social-button.google {
+            background-color: #4285F4;
+        }
+
+        .social-button.google:hover {
+            background-color: #357AE8;
+        }
+
+        .social-icon {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
+
+    {% element provider_list %}
+        {% for provider in socialaccount_providers %}
+            {% if provider.id == "openid" %}
+                {% for brand in provider.get_brands %}
+                    {% provider_login_url provider openid=brand.openid_url process=process as href %}
+                    <a href="{{ href }}" class="social-button google">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" 
+                              class="social-icon" width="20">
+                        Sign in with {{ brand.name }}
+                    </a>
+                {% endfor %}
+            {% else %}
+                {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}
+                <a href="{{ href }}" class="social-button google">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" 
+                         alt="{{ provider.name }} Logo" class="social-icon" width="20">
+                    Sign in with {{ provider.name }}
+                </a>
+            {% endif %}
+        {% endfor %}
+    {% endelement %}
+{% endif %}
+
