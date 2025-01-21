@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imágenes de MongoDB</title>
+</head>
+<body>
+    <h1>Imágenes almacenadas en MongoDB</h1>
+    <div>
+        {% for image in images %}
+            <div style="margin-bottom: 20px;">
+                <h3>{{ image.name }}</h3>
+                <img src="data:{{ image.content_type }};base64,{{ image.base64_data }}" alt="{{ image.name }}" style="max-width: 300px; height: auto;">
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

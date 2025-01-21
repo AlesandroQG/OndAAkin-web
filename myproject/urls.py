@@ -16,12 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from myapp import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
     path('', include('myapp.urls')),  
     path('accounts/', include('social_django.urls', namespace='social')),
+    path('images/', views.image_list, name='image_list'),
+    path('images/<str:image_id>/', views.get_image, name='get_image'),
+    path('allimages/', views.display_images, name='display_images'),
     #path('accounts/login/', LoginView.as_view(), name='account_login'),
     
 ]
