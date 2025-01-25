@@ -10,7 +10,7 @@ from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 import base64
-
+import json
 
 def login_page(request):
     return render(request, 'account/login.html')  # 'login.html' es el archivo HTML creado arriba.
@@ -72,3 +72,38 @@ def display_images(request):
         })
     
     return render(request, 'display_images.html', {'images': image_data})
+
+
+def get_annotations(request):
+    return render(request, 'via.html') 
+    
+@csrf_exempt
+def save_annotations(request):
+    if request.method == 'POST':
+        try:
+            # Obtén los datos JSON del cuerpo de la solicitud
+            datos = json.loads(request.body)
+            
+            # Inserta los datos en MongoDB
+            resultado = db.annotations.insert_one(remove_dots_from_keys(datos))
+
+            # Devuelve una respuesta de éxito
+            return JsonResponse({'mensaje': 'Datos guardados correctamente', 'id': str(resultado.inserted_id)})
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'JSON inválido'}, status=400)
+        except Exception as e:
+            print('Error inesperado:', e)
+            return JsonResponse({'error': f'Ocurrió un error: {str(e)}'}, status=500)
+    else:
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
+        
+def remove_dots_from_keys(data):
+    if isinstance(data, dict):
+        # Crea un nuevo diccionario con claves sin puntos
+        return {key.replace('.', '_'): remove_dots_from_keys(value) for key, value in data.items()}
+    elif isinstance(data, list):
+        # Aplica la función recursivamente a cada elemento si es una lista
+        return [remove_dots_from_keys(item) for item in data]
+    else:
+        # Devuelve el valor tal cual si no es un dict ni una lista
+        return data
