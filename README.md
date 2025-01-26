@@ -76,9 +76,10 @@ pip install django django-allauth requests jwt bson pymongo samv2
 | Ruta                          | Descripción                                 |
 |-------------------------------|---------------------------------------------|
 | `/accounts/login/`            | Página de inicio de sesión.                |
-| `/accounts/allimages/`        | Galería de imágenes cargadas.              |
+| `/allimages/`                 | Galería de imágenes cargadas.              |
 | `/annotations/`               | Módulo para anotar imágenes manualmente.   |
-| `/upload_image_and_segment/`  | Subir y segmentar imágenes automáticamente. |
+| `/upload_image_and_segment/`  | Subir y segmentar imágenes automáticamente.|
+| `/upload/`                    | Subir imagenes a Mongo-db                  |
 
 Uso
 Inicia MongoDB
