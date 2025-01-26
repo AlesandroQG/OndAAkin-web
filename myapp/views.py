@@ -11,6 +11,23 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 import base64
 import json
+import os
+from .segment import segment_image
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+@csrf_exempt
+def upload_image_and_segment(request):
+    if request.method == "POST" and request.FILES.get("image"):
+        image = request.FILES["image"]
+
+        # Procesar la imagen con la segmentación
+        image_segmented=segment_image(image.read())
+        response=JsonResponse({'status': 'success', 'base64_string': image_segmented})
+        print(response.status)
+        print(response.base64_string)
+        return response
+    return render(request, "upload_image_and_segment.html")
 
 def login_page(request):
     return render(request, 'account/login.html')  # 'login.html' es el archivo HTML creado arriba.

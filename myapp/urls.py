@@ -10,4 +10,5 @@ urlpatterns = [
     path('accounts/', login_page, name='login_page'),
     path('annotations/', get_annotations, name='get_annotations'),
     path('save_annotations/', save_annotations, name='save_annotations'),
+    path("upload_image_and_segment/", upload_image_and_segment, name="upload_image_and_segment"),
 ]

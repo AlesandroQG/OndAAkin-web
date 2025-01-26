@@ -1,0 +1,49 @@
+<!-- mi_app/templates/mi_app/upload.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segmentación de Imágenes</title>
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const loader = document.getElementById("loader");
+            const result = document.getElementById("result");
+
+            loader.style.display = "block";
+            result.innerHTML = "";
+
+            fetch("/upload_image_and_segment/", {
+                method: "POST",
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    loader.style.display = "none";
+                    if (data.status === "success") {
+                        result.innerHTML = `<img src="data:image/png;base64,${base64String}" alt="Imagen procesada" />`;
+                    } else {
+                        result.innerHTML = "Error procesando la imagen.";
+                    }
+                })
+                .catch(error => {
+                    loader.style.display = "none";
+                    result.innerHTML = "Error en la solicitud.";
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Segmentación de Imágenes</h1>
+    <form id="uploadForm" onsubmit="handleFormSubmit(event)">
+        <input type="file" name="image" accept="image/*" required />
+        <button type="submit">Procesar</button>
+    </form>
+    <div id="loader" style="display:none;">
+        <img src="/static/images/loader.gif" alt="Procesando..." style="width: 100px; height: 100px;"/>
+    </div>
+    <div id="result"></div>
+</body>
+</html>
