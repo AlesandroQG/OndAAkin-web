@@ -24,6 +24,14 @@ def upload_image_and_segment(request):
         # Procesar la imagen con la segmentación
         image_segmented=segment_image(image.read())
         response=JsonResponse({'status': 'success', 'base64_string': image_segmented})
+        # Guardar la imagen segmentada en MongoDB
+        db.segmentos.insert_one({
+            'name': image,
+            'data': image_segmented,
+            'content_type': image_segmented.content_type,
+            'uploaded_by': User.objects.first().email,
+            'timestamp': datetime.now(),
+        })
         print(response.status)
         print(response.base64_string)
         return response

@@ -146,7 +146,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "assets",  # Asegúrate de que está correctamente configurado
+    #BASE_DIR / "assets",  # Asegúrate de que está correctamente configurado
 ]
 
 # Default primary key field type

@@ -17,6 +17,8 @@ Asegúrate de que tienes las siguientes herramientas y librerías instaladas ant
 - **pymongo**
 - **samv2**
 - **social-auth-app-django**
+- **matplotlib**
+- **pytest**
 
 ---
 
@@ -33,12 +35,11 @@ docker run --name some-mongo -d mongo:tag
 Navega a tu directorio de trabajo y clona el proyecto.
 ```bash
 git clone <URL-del-repositorio>
-cd myproject
 ```
 ### **3. Ejecutar el Servidor de Django**
 Inicia el servidor local de Django:
 ```bash
-python manage.py runserver 0.0.0.0:8000
+python3 manage.py runserver 0.0.0.0:8000
 ```
 ### **4. Acceso a la Aplicación**
 Página de inicio de sesión:
@@ -68,7 +69,7 @@ Una vez procesada, podrás visualizar la imagen segmentada y guardar los resulta
 ### **Requisitos de Librerías
 Instala las dependencias necesarias mediante pip:
 ```bash
-pip install django django-allauth requests jwt bson pymongo samv2
+pip3 install django django-allauth requests jwt bson pymongo samv2 social-auth-app-django matplotlib pytest
 ```
 ### **Rutas Principales
 ## **Rutas Principales**
@@ -90,7 +91,7 @@ docker start some-mongo
 Inicia el servidor de Django
 Ejecuta el comando:
 ```bash
-python manage.py runserver 0.0.0.0:8000
+python3 manage.py runserver 0.0.0.0:8000
 Accede a la aplicación
 Usa las rutas mencionadas en la sección de Rutas Principales para interactuar con las funcionalidades.
 

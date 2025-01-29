@@ -50,7 +50,7 @@ def segment_image(images):
     image = np.array(imagef.convert("RGB"))
     
     # Generar las máscaras
-    sam2_checkpoint = "C:/Users/maider/Desktop/Ciudad_jardin/ADAT/UD 7/OndAAkin/SAM2-segmentation/checkpoints/sam2_hiera_large.pt"
+    sam2_checkpoint = "/Users/alesandroquirosgobbato/segmentations/sam2_hiera_large.pt"
     model_cfg = "sam2.1_hiera_l.yaml"
 
     sam2 = build_sam2(
